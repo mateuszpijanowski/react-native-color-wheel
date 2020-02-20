@@ -1,6 +1,6 @@
 // @flow
 
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {
   Animated,
   Image,
@@ -8,8 +8,9 @@ import {
   PanResponder,
   StyleSheet,
   View,
-} from 'react-native'
-import colorsys from 'colorsys'
+} from 'react-native';
+import colorsys from 'colorsys';
+import Slider from '@react-native-community/slider';
 
 export class ColorWheel extends Component {
   static defaultProps = {
@@ -24,7 +25,7 @@ export class ColorWheel extends Component {
       offset: {x: 0, y: 0},
       currentColor: props.initialColor,
       pan: new Animated.ValueXY(),
-      radius: 0,
+      radius: 60
     }
   }
 
@@ -214,6 +215,28 @@ export class ColorWheel extends Component {
           source={require('./color-wheel.png')}
         />
         <Animated.View style={[this.state.pan.getLayout(), thumbStyle]} />
+        <Slider
+            style={{width: '100%', height: 40}}
+            minimumValue={0}
+            maximumValue={100}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            onValueChange={(value) => {
+              const {h, s, v} = colorsys.hex2Hsv(this.state.currentColor);
+              this.props.onColorChange({h, s: value, v})
+            }}
+        />
+        <Slider
+            style={{width: '100%', height: 40}}
+            minimumValue={0}
+            maximumValue={100}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            onValueChange={(value) => {
+              const {h, s} = colorsys.hex2Hsv(this.state.currentColor);
+              this.props.onColorChange({h, s, v: value})
+            }}
+        />
       </View>
     )
   }
