@@ -225,7 +225,7 @@ export class ColorWheel extends Component {
                 minimumValue={1}
                 maximumValue={99}
                 value={this.state.v}
-                minimumTrackTintColor="#000000"
+                minimumTrackTintColor="#0275d8"
                 maximumTrackTintColor="#000000"
                 onValueChange={(value) => {
                   const {h, s, v} = colorsys.hex2Hsv(this.state.currentColor);
